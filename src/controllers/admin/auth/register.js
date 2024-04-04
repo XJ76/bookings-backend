@@ -1,5 +1,6 @@
 const User = require('../../../models/user');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken'); // Import jwt for token generation
 
 /**
  * Registers a new admin user.
@@ -42,8 +43,15 @@ const registerAdmin = async (req, res) => {
         // Persist the new user
         await newUser.save();
 
-        // Successful registration response
-        res.status(201).json({ message: 'Admin registered successfully.' });
+        // Generate auth token for the new admin
+        const authToken = jwt.sign(
+            { id: newUser._id, userType: newUser.userType },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
+
+        // Successful registration response with token
+        res.status(201).json({ message: 'Admin registered successfully.', authToken });
     } catch (error) {
         // Log the error for debugging purposes
         console.error('Registration Error:', error);

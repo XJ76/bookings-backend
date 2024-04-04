@@ -12,36 +12,36 @@ const loginAdmin = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // Check for existing user
-        const user = await User.findOne({ email, userType: 'Admin' });
-        if (!user) {
+        // Verify admin existence
+        const admin = await User.findOne({ email, userType: 'Admin' });
+        if (!admin) {
             return res.status(404).json({ message: 'Admin not found.' });
         }
 
-        // Password verification
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
+        // Validate password
+        const validPassword = await bcrypt.compare(password, admin.password);
+        if (!validPassword) {
             return res.status(400).json({ message: 'Invalid credentials.' });
         }
 
-        // Generate JWT token
-        const token = jwt.sign(
-            { id: user._id, userType: user.userType },
+        // Create auth token
+        const authToken = jwt.sign(
+            { id: admin._id, userType: admin.userType },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
 
-        // Successful login response
+        // Respond with success and token
         res.status(200).json({
-            message: 'Admin logged in successfully.',
-            token
+            message: 'Admin successfully authenticated.',
+            authToken
         });
     } catch (error) {
-        // Log the error for debugging purposes
-        console.error('Login Error:', error);
+        // Debugging log
+        console.error('Authentication Error:', error);
 
-        // Error response
-        res.status(500).json({ message: 'Error logging in admin.', error: error.message });
+        // Respond with error
+        res.status(500).json({ message: 'Failed to authenticate admin.', error: error.message });
     }
 };
 
