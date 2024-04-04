@@ -21,6 +21,12 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 8
     },
+    userType: {
+        type: String,
+        required: true,
+        enum: ['Admin', 'General User'],
+        default: 'General User'
+    },
     fullName: {
         type: String,
         required: true,
