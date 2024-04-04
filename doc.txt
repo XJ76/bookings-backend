@@ -1,38 +1,53 @@
-
 /*
-Frontend  Documentation: System Fields Requirement
+Frontend Documentation: System Field Requirements
 
-This document outlines the required fields for the frontend  to integrate with the backend system effectively. The system encompasses various modules including Events, Activities, Meal Plans, and Accommodation. Below are the detailed field requirements for each module:
+This document specifies the necessary fields for the frontend to seamlessly integrate with the backend system. The system includes various modules such as Events, Activities, Meal Plans, and Accommodations. The following are the detailed field requirements for each module:
 
 1. Events:
 
-   - eventName (String): Name of the event.
-   - eventDescription (String): Detailed description of the event.
-   - startDate (Date): The start date of the event.
-   - endDate (Date): The end date of the event.
-   - location (String): The location where the event will be held.
+   - name (String): The event's name.
+   - description (String): A detailed description of the event.
+   - start (Date): The event's start date.
+   - end (Date): The event's end date.
+   - venue (String): The event's location.
 
 2. Activities:
 
-   - activityName (String): Name of the activity.
-   - activityDescription (String): Detailed description of the activity.
-   - duration (Number): Duration of the activity in hours.
-   - ageRestriction (Number): Minimum age required to participate in the activity.
+   - name (String): The activity's name.
+   - description (String): A detailed description of the activity.
+   - hours (Number): The activity's duration in hours.
+   - minAge (Number): The minimum age to participate in the activity.
 
 3. Meal Plans:
 
-   - mealPlanName (String): Name of the meal plan.
-   - mealDescription (String): Detailed description of what the meal plan includes.
-   - mealType (String): Type of meal (e.g., Breakfast, Lunch, Dinner, Snack).
-   - dietaryRestrictions (Array<String>): List of dietary restrictions catered to by the meal plan.
+   - name (String): The meal plan's name.
+   - description (String): A detailed description of the meal plan.
+   - type (String): The type of meal (e.g., Breakfast, Lunch, Dinner, Snack).
+   - dietaryOptions (Array<String>): A list of dietary restrictions accommodated by the meal plan.
 
-4. Accommodation:
+4. Accommodations:
 
-   - accommodationName (String): Name of the accommodation.
-   - accommodationType (String): Type of accommodation (e.g., Hotel, Hostel, Apartment).
-   - amenities (Array<String>): List of amenities provided.
-   - pricePerNight (Number): Price per night in USD.
+   - name (String): The accommodation's name.
+   - type (String): The type of accommodation (e.g., Hotel, Hostel, Apartment).
+   - features (Array<String>): A list of provided amenities.
+   - nightlyRate (Number): The price per night in USD.
 
+5. User Registration:
+
+   - firstName (String): The user's first name.
+   - lastName (String): The user's last name.
+   - email (String): The user's email address.
+   - password (String): The user's chosen password.
+   - phoneNumber (String): The user's phone number (optional).
+   - address (String): The user's physical address (optional).
+
+6. Admin Registration:
+
+   - firstName (String): The user's first name.
+   - lastName (String): The user's last name.
+   - email (String): The user's email address.
+   - password (String): The user's chosen password.
+   - phoneNumber (String): The user's phone number (optional).
+   - address (String): The user's physical address (optional).
 
 */
-
