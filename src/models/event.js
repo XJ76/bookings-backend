@@ -14,6 +14,20 @@ const eventSchema = new mongoose.Schema({
         required: true
     },
     description: String,
+    registeredUsers: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    maxAttendees: {
+        type: Number,
+        required: true
+    },
+    dressCode: {
+        type: String,
+        required: false,
+        default: ''
+    },
     // Add any other event fields as needed
 });
 
