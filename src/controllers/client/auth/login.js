@@ -11,17 +11,22 @@ const jwt = require('jsonwebtoken');
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
+    // Check if the email is an admin email
+    if (email.endsWith('@claritytech.com')) {
+        return res.status(403).json({ message: 'Admin emails are not allowed to login here.' });
+    }
+
     try {
-        // Verify general user existence and ensure it's not an admin email
+        // Verify general user existence
         const user = await User.findOne({ email, userType: 'General' });
-        if (!user || email.endsWith('@claritytech.com')) {
-            return res.status(404).json({ message: 'User not found or admin emails are not allowed.' });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
         }
 
         // Validate password
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
-            return res.status(400).json({ message: 'Invalid credentials.' });
+            return res.status(401).json({ message: 'Invalid password.' });
         }
 
         // Create auth token
