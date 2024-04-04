@@ -1,0 +1,38 @@
+
+/*
+Frontend  Documentation: System Fields Requirement
+
+This document outlines the required fields for the frontend  to integrate with the backend system effectively. The system encompasses various modules including Events, Activities, Meal Plans, and Accommodation. Below are the detailed field requirements for each module:
+
+1. Events:
+
+   - eventName (String): Name of the event.
+   - eventDescription (String): Detailed description of the event.
+   - startDate (Date): The start date of the event.
+   - endDate (Date): The end date of the event.
+   - location (String): The location where the event will be held.
+
+2. Activities:
+
+   - activityName (String): Name of the activity.
+   - activityDescription (String): Detailed description of the activity.
+   - duration (Number): Duration of the activity in hours.
+   - ageRestriction (Number): Minimum age required to participate in the activity.
+
+3. Meal Plans:
+
+   - mealPlanName (String): Name of the meal plan.
+   - mealDescription (String): Detailed description of what the meal plan includes.
+   - mealType (String): Type of meal (e.g., Breakfast, Lunch, Dinner, Snack).
+   - dietaryRestrictions (Array<String>): List of dietary restrictions catered to by the meal plan.
+
+4. Accommodation:
+
+   - accommodationName (String): Name of the accommodation.
+   - accommodationType (String): Type of accommodation (e.g., Hotel, Hostel, Apartment).
+   - amenities (Array<String>): List of amenities provided.
+   - pricePerNight (Number): Price per night in USD.
+
+
+*/
+
