@@ -28,6 +28,10 @@ const eventSchema = new mongoose.Schema({
         required: false,
         default: ''
     },
+    activities: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Activity'
+    }]
     // Add any other event fields as needed
 });
 

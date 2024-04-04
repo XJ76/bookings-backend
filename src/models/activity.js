@@ -1,21 +1,17 @@
 const mongoose = require('mongoose');
 
 const activitySchema = new mongoose.Schema({
-    name: {
+    eventName: {
         type: String,
         required: true
     },
-    description: String,
-    price: {
-        type: Number,
-        required: true
-    },
+    activityDescription: String,
     duration: {
         type: Number,
         required: true,
         min: [1, 'Duration should be at least 1 hour']
     },
-    ageLimit: {
+    ageRestriction: {
         type: Number,
         required: false
     },
@@ -28,6 +24,11 @@ const activitySchema = new mongoose.Schema({
         enum: ['Fully Booked', 'Places Running Out', 'Available'],
         required: true
     },
+    event: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event',
+        required: true
+    }
     // Add any other activity fields as needed
 });
 
