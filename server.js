@@ -6,6 +6,7 @@ const express = require('express');
 const cors = require('cors');
 const dbConnect = require('./config/dbConnect');
 const clientRoutes = require('./src/routes/client/routes'); // Import client routes
+const adminRoutes = require('./src/routes/admin/routes'); // Import admin routes
 
 // Initialize Express application
 const app = express();
@@ -18,6 +19,9 @@ app.use(express.json());
 
 // Use Client Routes
 app.use('/client/auth', clientRoutes); // Mount client routes
+
+// Use Admin Routes
+app.use('/admin', adminRoutes); // Mount admin routes
 
 // Route: Define a simple GET route for the root path
 app.get('/', (req, res) => {

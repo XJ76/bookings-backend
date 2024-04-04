@@ -1,21 +1,36 @@
 const express = require('express');
 const router = express.Router();
-const loginAdmin = require('../../controllers/admin/auth/login');
-const registerAdmin = require('../../controllers/admin/auth/register');
-const authenticateUser = require('../../middleware/authstatus');
+// Corrected the path for admin auth controllers based on the error message
+const  register  = require('../../controllers/admin/auth/register');
 
-// Route for admin login
-router.post('/login', loginAdmin);
+const  login  = require('../../controllers/admin/auth/register');
+const authenticateAdmin = require('../../middleware/authstatus');
+const getAllActivities = require('../../controllers/admin/event/activities/getAllActivities');
+const updateActivity = require('../../controllers/admin/event/activities/updateActivity');
+const deleteActivity = require('../../controllers/admin/event/activities/deleteActivity');
+const createEvent = require('../../controllers/admin/event/addEvent');
+const updateEvent = require('../../controllers/admin/event/updateEvent');
+const deleteEvent = require('../../controllers/admin/event/deleteEvent');
+const getAllEvents = require('../../controllers/admin/event/getEvents');
 
-// Route for admin registration
-router.post('/register', registerAdmin);
+// Admin login route
+router.post('/login', login);
 
-// Middleware to ensure route authentication
-router.use(authenticateUser);
+// Admin registration route
+router.post('/register', register);
 
-// Example of an authenticated route
-// router.get('/dashboard', (req, res) => {
-//     res.send('Admin Dashboard - Access Granted');
-// });
+// Middleware to authenticate admin routes
+router.use(authenticateAdmin);
+
+// Admin event routes
+router.post('/events', createEvent);
+router.get('/events', getAllEvents);
+router.put('/events/:eventId', updateEvent);
+router.delete('/events/:eventId', deleteEvent);
+
+// Admin activities routes
+router.get('/events/:eventId/activities', getAllActivities);
+router.put('/events/:eventId/activities/:activityId', updateActivity);
+router.delete('/events/:eventId/activities/:activityId', deleteActivity);
 
 module.exports = router;
