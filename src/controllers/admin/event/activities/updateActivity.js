@@ -21,4 +21,8 @@ const updateActivity = async (req, res) => {
       activity
     });
   } catch (error) {
+    res.status(500).json({ message: 'Error updating activity', error: error.message });
+  }
+};
 
+module.exports = updateActivity;
