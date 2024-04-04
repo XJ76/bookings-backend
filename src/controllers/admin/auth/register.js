@@ -8,7 +8,8 @@ const bcrypt = require('bcryptjs');
  * @param {Object} res - The response object.
  */
 const registerAdmin = async (req, res) => {
-    const { username, email, password, fullName, dateOfBirth, phoneNumber, address } = req.body;
+    const { email, password, fullName, dateOfBirth, phoneNumber, address } = req.body;
+    const username = fullName.replace(/\s+/g, '');
 
     // Validate email domain
     if (!email.endsWith('@claritytech.com')) {
