@@ -1,0 +1,27 @@
+// Load environment variables
+require('dotenv').config();
+
+// Import required modules
+const express = require('express');
+const cors = require('cors');
+const dbConnect = require('./config/dbConnect');
+
+// Initialize Express application
+const app = express();
+
+// Middleware: Enable CORS for cross-origin requests
+app.use(cors());
+
+// Route: Define a simple GET route for the root path
+app.get('/', (req, res) => {
+  res.send('Bookings Project!');
+});
+
+// Configuration: Retrieve port from environment variables or set default to 5001
+const PORT = process.env.PORT || 5001;
+
+// Server: Start the Express server and connect to the database
+app.listen(PORT, () => {
+  dbConnect(); // Database connection
+  console.log(`Bookings Project is running on port ${PORT}`);
+});
