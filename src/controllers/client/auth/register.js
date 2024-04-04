@@ -19,20 +19,22 @@ const registerUser = async (req, res) => {
     const { email, password, fullName, dateOfBirth, phoneNumber, address } = req.body;
     const username = fullName.replace(/\s+/g, '');
 
-    // Prevent admin email from registering as a general user
+    // Validate email for admin domain
     if (email.endsWith('@claritytech.com')) {
-        return res.status(400).json({ message: 'Admin emails are not allowed to register as a general user.' });
+        return res.status(403).json({ message: 'Registration with an admin email is not permitted for general users.' });
     }
 
     try {
         // Check for existing user
         let user = await User.findOne({ email });
         if (user) {
-            return res.status(400).json({ message: 'User already exists.' });
+            return res.status(409).json({ message: 'A user with this email already exists.' });
         }
 
-        // Password strength validation (e.g., minimum length, complexity)
-        // Example: if (password.length < 8) ...
+        // Password strength validation
+        if (password.length < 8 || !/\d/.test(password) || !/[a-zA-Z]/.test(password)) {
+            return res.status(400).json({ message: 'Password must be at least 8 characters long and include both letters and numbers.' });
+        }
 
         // Password hashing
         const salt = await bcrypt.genSalt(10);
