@@ -5,12 +5,19 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const dbConnect = require('./config/dbConnect');
+const clientRoutes = require('./src/routes/client/routes'); // Import client routes
 
 // Initialize Express application
 const app = express();
 
 // Middleware: Enable CORS for cross-origin requests
 app.use(cors());
+
+// Middleware: Parse JSON bodies
+app.use(express.json());
+
+// Use Client Routes
+app.use('/client/auth', clientRoutes); // Mount client routes
 
 // Route: Define a simple GET route for the root path
 app.get('/', (req, res) => {
