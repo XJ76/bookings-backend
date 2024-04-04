@@ -22,6 +22,11 @@ const PORT = process.env.PORT || 5001;
 
 // Server: Start the Express server and connect to the database
 app.listen(PORT, () => {
-  dbConnect(); // Database connection
-  console.log(`Bookings Project is running on port ${PORT}`);
+  dbConnect().then(() => {
+    console.log(`Bookings Project is running on port ${PORT}`);
+  }).catch((error) => {
+    console.error(`Failed to connect to the database: ${error.message}`);
+  });
+}).on('error', (error) => {
+  console.error(`Failed to start the server: ${error.message}`);
 });
