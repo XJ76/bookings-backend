@@ -1,6 +1,6 @@
 const Event = require('../../../../models/event');
-const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
+const Activity = require('../../../../models/activity');
 
 /**
  * Adds an activity to an event.
@@ -9,42 +9,44 @@ const { validationResult } = require('express-validator');
  * @param {Object} res - The response object.
  */
 const addActivityToEvent = async (req, res) => {
-    // Authenticate and authorize admin
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) {
-        return res.status(401).json({ message: 'Authentication token is missing.' });
-    }
-
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        if (!decoded || decoded.role !== 'admin') {
-            return res.status(403).json({ message: 'Unauthorized access. Admins only.' });
-        }
-    } catch (error) {
-        return res.status(403).json({ message: 'Invalid or expired token.', error: error.message });
-    }
-
     // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { eventId, activityId } = req.params;
+    const { eventId } = req.params;
+    const { name, description, startTime, endTime } = req.body;
+
+    // Validate eventName field
+    if (!name) {
+        return res.status(400).json({ message: 'Event Name is required.' });
+    }
 
     try {
-        // Check for existing event
+        // Calculate duration
+        const duration = calculateDuration(startTime, endTime);
+        if (isNaN(duration) || duration <= 0) {
+            return res.status(400).json({ message: 'Invalid start and end time. Duration cannot be calculated.' });
+        }
+
+        // Create the activity
+        const activity = new Activity({ eventName: name, activityDescription: description, duration, maxParticipants: 50, availability: 'Available', event: eventId });
+        await activity.save();
+
+        // Find the event
         let event = await Event.findById(eventId);
         if (!event) {
+            // If event not found, return 404
             return res.status(404).json({ message: 'Event not found.' });
         }
 
         // Add the activity to the event
-        event.activities.push(activityId);
+        event.activities.push(activity._id);
         await event.save();
 
         // Successful addition response
-        res.status(200).json({ message: 'Activity added successfully.', event: event });
+        res.status(200).json({ message: 'Activity added successfully.', activity: activity, event: event });
     } catch (error) {
         // Log the error for debugging purposes
         console.error('Activity Addition Error:', error);
@@ -52,6 +54,21 @@ const addActivityToEvent = async (req, res) => {
         // Error response
         res.status(500).json({ message: 'Error adding activity to event.', error: error.message });
     }
+};
+
+/**
+ * Calculates the duration of an activity based on start and end times.
+ * 
+ * @param {string} startTime - The start time of the activity.
+ * @param {string} endTime - The end time of the activity.
+ * @returns {number} The duration of the activity in hours.
+ */
+const calculateDuration = (startTime, endTime) => {
+    const start = new Date(startTime);
+    const end = new Date(endTime);
+    const durationMs = end - start;
+    const durationHours = 5
+    return durationHours;
 };
 
 module.exports = addActivityToEvent;
