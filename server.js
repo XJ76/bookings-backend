@@ -26,29 +26,70 @@ app.use('/admin', adminRoutes); // Mount admin routes
 // Route: Define a simple GET route for the root path
 app.get('/', (req, res) => {
   res.send(`
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Bookings Project</title>
-      <style>
-        body {
-          font-family: Arial, sans-serif;
-          background-color: #f4f4f4;
-          text-align: center;
-          margin-top: 100px;
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings Project</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #1a1a1a; /* Dark background color */
+        text-align: center;
+        margin-top: 100px;
+        color: #fff; /* White text color */
+      }
+      h1 {
+        font-size: 3em;
+        color: #00bfff; /* Deep Sky Blue */
+        margin-bottom: 20px; /* Add some space below the heading */
+        animation: fadeInDown 1s ease; /* Fade in animation */
+      }
+      p {
+        font-size: 1.2em;
+        color: #ccc; /* Light Gray */
+        animation: fadeInUp 1s ease; /* Fade in animation */
+      }
+      .developer-info {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        font-size: 0.8em;
+        color: #888; /* Light Gray */
+      }
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
         }
-        h1 {
-          color: #333;
-          font-size: 2em;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
-      </style>
-    </head>
-    <body>
-      <h1>Welcome to the Bookings API!</h1>
-    </body>
-    </html>
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to the Bookings API!</h1>
+    <p>We collect a large amount of data from our customers with their consent, see bottom right for contact details</p>
+    <div class="developer-info">
+      <p>Developed by Joshua J Smith</p>
+      <p>Github: <a href="https://github.com/XJ76">XJ76</a></p>
+      <p>Phone: +263789956168</p>
+    </div>
+  </body>
+  </html>  
   `);
 });
 
