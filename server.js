@@ -25,7 +25,31 @@ app.use('/admin', adminRoutes); // Mount admin routes
 
 // Route: Define a simple GET route for the root path
 app.get('/', (req, res) => {
-  res.send('Bookings Project!');
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Bookings Project</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          text-align: center;
+          margin-top: 100px;
+        }
+        h1 {
+          color: #333;
+          font-size: 2em;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>Welcome to the Bookings API!</h1>
+    </body>
+    </html>
+  `);
 });
 
 // Configuration: Retrieve port from environment variables or set default to 5001

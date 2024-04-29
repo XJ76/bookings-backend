@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-// Corrected the path for admin auth controllers based on the error message
-const  register  = require('../../controllers/admin/auth/register');
 
-const  login  = require('../../controllers/admin/auth/register');
+// Corrected the path for admin auth controllers based on the error message
+const register = require('../../controllers/admin/auth/register');
+
+const login = require('../../controllers/admin/auth/login');
 const authenticateAdmin = require('../../middleware/authstatus');
 const getAllActivities = require('../../controllers/admin/event/activities/getAllActivities');
 const updateActivity = require('../../controllers/admin/event/activities/updateActivity');
@@ -20,10 +21,10 @@ router.post('/login', login);
 router.post('/register', register);
 
 // Middleware to authenticate admin routes
-router.use(authenticateAdmin);
+//router.use(authenticateAdmin);
 
 // Admin event routes
-router.post('/events', createEvent);
+router.post('/events/add', createEvent);
 router.get('/events', getAllEvents);
 router.put('/events/:eventId', updateEvent);
 router.delete('/events/:eventId', deleteEvent);

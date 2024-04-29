@@ -1,6 +1,5 @@
 const Event = require('../../../models/event');
 const { validationResult } = require('express-validator');
-const jwt = require('jsonwebtoken');
 
 /**
  * Adds a new event.
@@ -9,43 +8,29 @@ const jwt = require('jsonwebtoken');
  * @param {Object} res - The response object.
  */
 const addEvent = async (req, res) => {
-    // Authenticate and authorize admin
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) {
-        return res.status(401).json({ message: 'Authentication token is missing.' });
-    }
-
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        if (!decoded || decoded.role !== 'admin') {
-            return res.status(403).json({ message: 'Unauthorized access. Admins only.' });
-        }
-    } catch (error) {
-        return res.status(403).json({ message: 'Invalid or expired token.', error: error.message });
-    }
-
     // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { eventName, eventDescription, startDate, endDate, location } = req.body;
+    const { name, description, startDate, endDate, location ,maxAttendees} = req.body;
 
     try {
         // Check for existing event
-        let event = await Event.findOne({ eventName });
+        let event = await Event.findOne({ name });
         if (event) {
             return res.status(409).json({ message: 'An event with this name already exists.' });
         }
 
         // Event creation
         event = new Event({
-            eventName,
-            eventDescription,
+            name,
+            description,
             startDate,
             endDate,
-            location
+            location,
+            maxAttendees
         });
 
         // Persist the new event

@@ -18,7 +18,7 @@ const registerAdmin = async (req, res) => {
     }
 
     const { email, password, fullName, dateOfBirth, phoneNumber, address } = req.body;
-    const username = fullName.replace(/\s+/g, '');
+    const username = fullName
 
     try {
         // Check for existing user

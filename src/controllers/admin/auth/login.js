@@ -11,6 +11,11 @@ const jwt = require('jsonwebtoken');
 const loginAdmin = async (req, res) => {
     const { email, password } = req.body;
 
+    // Check if all required fields are provided
+    if (!email || !password) {
+        return res.status(400).json({ message: 'Please provide both email and password.' });
+    }
+
     try {
         // Verify admin existence
         const admin = await User.findOne({ email, userType: 'Admin' });

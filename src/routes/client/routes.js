@@ -11,7 +11,7 @@ router.post('/login', loginUser);
 router.post('/register', registerUser);
 
 // Middleware to ensure route authentication for general users
-router.use(authenticateUser);
+// router.use(authenticateUser);
 
 // Example of an authenticated route for general users
 // router.get('/profile', (req, res) => {
