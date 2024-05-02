@@ -52,6 +52,10 @@ const userSchema = new mongoose.Schema({
         }
     },
     // Add any other user fields as needed
+    profileImage: {
+        type: String, // Assuming the image is stored as a URL
+        required: false // Adjust as needed based on your requirements
+    }
 });
 
 const User = mongoose.model('User', userSchema);

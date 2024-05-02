@@ -16,7 +16,7 @@ const addActivityToEvent = async (req, res) => {
     }
 
     const { eventId } = req.params;
-    const { name, description, startTime, endTime } = req.body;
+    const { name, description, startTime, endTime,fee, profileImage } = req.body;
 
     // Validate eventName field
     if (!name) {
@@ -31,7 +31,7 @@ const addActivityToEvent = async (req, res) => {
         }
 
         // Create the activity
-        const activity = new Activity({ eventName: name, activityDescription: description, duration, maxParticipants: 50, availability: 'Available', event: eventId });
+        const activity = new Activity({ eventName: name, activityDescription: description, duration, maxParticipants: 50, availability: 'Available', event: eventId ,fee, profileImage});
         await activity.save();
 
         // Find the event

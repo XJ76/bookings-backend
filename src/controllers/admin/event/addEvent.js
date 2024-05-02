@@ -14,7 +14,7 @@ const addEvent = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, description, startDate, endDate, location ,maxAttendees} = req.body;
+    const { name, description, startDate, endDate, location ,maxAttendees,profileImage} = req.body;
 
     try {
         // Check for existing event
@@ -30,7 +30,8 @@ const addEvent = async (req, res) => {
             startDate,
             endDate,
             location,
-            maxAttendees
+            maxAttendees,
+            profileImage
         });
 
         // Persist the new event

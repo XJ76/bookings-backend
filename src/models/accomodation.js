@@ -22,6 +22,10 @@ const accommodationSchema = new mongoose.Schema({
     },
     specialInstructions: String,
     // Add any other accommodation fields as needed
+    profileImage: {
+        type: String, // Assuming the image is stored as a URL
+        required: false // Adjust as needed based on your requirements
+    }
 });
 
 const Accommodation = mongoose.model('Accommodation', accommodationSchema);

@@ -21,6 +21,10 @@ const mealPlanSchema = new mongoose.Schema({
     },
     ingredients: [String],
     // Add any other meal plan fields as needed
+    profileImage: {
+        type: String, // Assuming the image is stored as a URL
+        required: false // Adjust as needed based on your requirements
+    }
 });
 
 const MealPlan = mongoose.model('MealPlan', mealPlanSchema);
