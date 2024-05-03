@@ -1,29 +1,24 @@
-const Event = require('../../../../models/event');
+const Activities = require('../../../../models/sepActivity');
 
 /**
- * Retrieves all activities for a specific event.
+ * Get all activities.
  * 
  * @param {Object} req - The request object.
  * @param {Object} res - The response object.
  */
 const getAllActivities = async (req, res) => {
-    const { eventId } = req.params;
-
     try {
-        // Retrieve the event with the specified ID
-        const event = await Event.findById(eventId).populate('activities');
-        if (!event) {
-            return res.status(404).json({ message: 'Event not found.' });
-        }
+        // Fetch all activities from the database
+        const activities = await Activities.find();
 
-        // Respond with the activities of the event
-        res.status(200).json({ activities: event.activities });
+        // Return the activities as a JSON response
+        res.status(200).json(activities);
     } catch (error) {
         // Log the error for debugging purposes
-        console.error('Activities Retrieval Error:', error);
-
+        console.error('Error fetching activities:', error);
+        
         // Error response
-        res.status(500).json({ message: 'Error retrieving activities.', error: error.message });
+        res.status(500).json({ message: 'Error fetching activities', error: error.message });
     }
 };
 

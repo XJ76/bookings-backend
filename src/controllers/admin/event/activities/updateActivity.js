@@ -1,19 +1,20 @@
 const Activity = require('../../../../models/activity');
 
+
 const updateActivity = async (req, res) => {
   try {
-    const { eventId, activityId } = req.params;
-    const { name, description, startTime, endTime } = req.body;
+    const { activityId } = req.params;
+    const updateFields = req.body; // Fields to be updated
 
-    // Find the activity within the event by IDs
-    const activity = await Activity.findOneAndUpdate(
-      { _id: activityId, event: eventId },
-      { name, description, startTime, endTime },
+    // Find the activity by ID and update the specified fields
+    const activity = await Activity.findByIdAndUpdate(
+      activityId,
+      updateFields,
       { new: true }
     );
 
     if (!activity) {
-      return res.status(404).json({ message: 'Activity not found or does not belong to the specified event.' });
+      return res.status(404).json({ message: 'Activity not found.' });
     }
 
     res.status(200).json({

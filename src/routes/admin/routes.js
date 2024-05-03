@@ -13,7 +13,7 @@ const createEvent = require('../../controllers/admin/event/addEvent');
 const updateEvent = require('../../controllers/admin/event/updateEvent');
 const deleteEvent = require('../../controllers/admin/event/deleteEvent');
 const getAllEvents = require('../../controllers/admin/event/getEvents');
-const addActivityToEvent = require('../../controllers/admin/event/activities/addActivities');
+const addActivityToEvent = require('../../controllers/admin/event/activities/create');
 // Admin login route
 router.post('/login', login);
 
@@ -30,8 +30,8 @@ router.put('/events/:eventId', updateEvent);
 router.delete('/events/:eventId', deleteEvent);
 
 // Admin activities routes
-router.post('/events/:eventId/activities', addActivityToEvent);
-router.get('/events/:eventId/activities', getAllActivities);
+router.post('/events/activities', addActivityToEvent);
+router.get('/events/activities', getAllActivities);
 router.put('/:eventId/activities/:activityId', updateActivity);
 router.delete('/events/:eventId/activities/:activityId', deleteActivity);
 

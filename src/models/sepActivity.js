@@ -1,23 +1,26 @@
 const mongoose = require('mongoose');
 
-const activitySchema = new mongoose.Schema({
-    eventName: {
+const activitiesSchema = new mongoose.Schema({
+    name: {
         type: String,
         required: true
     },
     activityDescription: String,
-    activityName: {
-        type: String,
-        required: true
-    },
-    duration: {
-        type: Number,
-        required: true,
-        min: [1, 'Duration should be at least 1 hour']
-    },
+    // activityName: {
+    //     type: String,
+    //     required: true
+    // },
+    // duration: {
+    //     type: Date,
+    //     required: true,
+    // },
     ageRestriction: {
         type: Number,
         required: false
+    },
+    participants: {
+        type: Number,
+        required: true
     },
     maxParticipants: {
         type: Number,
@@ -28,11 +31,7 @@ const activitySchema = new mongoose.Schema({
         enum: ['Fully Booked', 'Places Running Out', 'Available'],
         required: true
     },
-    event: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Event',
-        required: true
-    },
+
     // Add any other activity fields as needed
     profileImage: {
         type: String, // Assuming the image is stored as a URL
@@ -42,9 +41,14 @@ const activitySchema = new mongoose.Schema({
         type: Number,
         required: true
 
+    },
+    
+    date: {
+        type: Date, // Added type Date
+        required: true // Adjust as needed based on your requirements
     }
 }, { timestamps: true });
 
-const Activity = mongoose.model('Activity', activitySchema);
+const Activities= mongoose.model('Activities', activitiesSchema);
 
-module.exports = Activity;
+module.exports = Activities;
