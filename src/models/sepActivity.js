@@ -32,17 +32,17 @@ const activitiesSchema = new mongoose.Schema({
         required: true
     },
 
-    // Add any other activity fields as needed
     profileImage: {
-        type: String, // Assuming the image is stored as a URL
-        required: false // Adjust as needed based on your requirements
+        data: Buffer,
+        contentType: String
     },
+    
     fee:{
         type: Number,
         required: true
 
     },
-    
+
     date: {
         type: Date, // Added type Date
         required: true // Adjust as needed based on your requirements
